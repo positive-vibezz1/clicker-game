@@ -2,6 +2,7 @@ from pygame import *
 from pygame import font
 from pygame import math
 import pygame
+import os
 import sys
 
 
@@ -15,15 +16,22 @@ click = 0
 clickworth = 1
 
 #upgrade button
-reducecounter = 0
 nextupgrade = 9
 
+#reduce counter logic
+reducecounter = 0
+bottomout = 0
 
 #window properties
 clicker = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("clicker game")
 pygame.display.flip()
 
+'''
+clickicon = pygame.image.load('sponge bob.png')
+pygame.image.save(clickicon, 'sponge bob.png')
+pygame.display.set_icon(clickicon)
+'''
 
 #clicker button properties
 clickebutton = pygame.draw.rect(clicker, "pink", pygame.Rect(375, 350, 60, 60))
@@ -32,6 +40,9 @@ upgradebutton = pygame.draw.rect(clicker, "pink", pygame.Rect(675, 130, 40, 40))
 
 
 running = True
+
+
+
 
 while True:
     for event in pygame.event.get():
@@ -52,9 +63,9 @@ while True:
 
 
         #clicker button
-        if x >= 363 and x <=433 and y >= 350 and event.type == mousepress and event.button == leftclick :
+        if x >= 363 and x <=433 and y >= 350 and event.type == mousepress and event.button == leftclick:
             click += clickworth
-            print(nextupgrade)
+            #print(nextupgrade)
             #print('u clicked: ' + str(click))
 
         
@@ -62,8 +73,7 @@ while True:
         if x >= 663 and x <= 733 and y >= 100 and event.type == mousepress and event.button == leftclick:
             if click > nextupgrade:
                 clickworth += 1
-                nextupgrade **= 2
-
+                nextupgrade *= 3
 
 
         #our number displays, how it displays aswell as color and everything which has to do with the total value
@@ -77,45 +87,48 @@ while True:
                 pygame.draw.rect(clicker, "black", pygame.Rect(70, 120, 350, 60))
 
             font = pygame.font.SysFont("Times New Roman", 35)
-            numberdisplay = font.render('u clicked ' + str(click), True, 'pink')
+            numberdisplay = font.render('u clicked: ' + str(click), True, 'pink')
             clicker.blit(numberdisplay, (150 - numberdisplay.get_width() // 2, 150 - numberdisplay.get_height() // 2))
 
-            '''
-            #reduces counter until next upgrade letting u know how many more clicks 
-            def untilnextupgrade(reducecounter, clickamount):
-                if event.type == mousepress and event.button == leftclick:
-                    pygame.draw.rect(clicker, "black", pygame.Rect(440, 400, 340, 90))
-                    reducecounter -= clickamount
 
-                font = pygame.font.SysFont("Times New Roman", 35)
-                numberdisplay = font.render('next upgrade in: ' + str(reducecounter), True, 'pink')
-                clicker.blit(numberdisplay,(650 - numberdisplay.get_width() // 2, 450 - numberdisplay.get_height() // 2))
+        #reduces counter until next upgrade letting u know how many more clicks 
+        def untilnextupgrade(countdown):
+            if event.type == mousepress and event.button == leftclick:
+                pygame.draw.rect(clicker, "black", pygame.Rect(440, 200, 320, 90))
 
-                #print(reducecounter)
-            untilnextupgrade(nextupgrade, clickworth)
-            '''
+            if countdown >= click - 1:
+                countdown -= click - 1
+
+            else:
+                countdown = 0
 
 
 
+            font = pygame.font.SysFont("Times New Roman", 35)
+            numberdisplay = font.render('next upgrade in: ' + str(countdown), True, 'pink')
+            clicker.blit(numberdisplay,(584 - numberdisplay.get_width() // 2, 250 - numberdisplay.get_height() // 2))
+
+            return countdown
+
+            #print(reducecounter)
+            #print(click)
+            
 
         #upgrade display
         def clickbuttontoupgradeclick():
             #draws a black rectangle over our upgrade text
             if event.type == mousepress and event.button == leftclick:
                 pygame.draw.rect(clicker, "black", pygame.Rect(420, 110, 250, 100))
-
-         
+       
             font = pygame.font.SysFont("Times New Roman", 35)
             numberdisplay = font.render('click worth: ' + str(clickworth), True, 'pink')
             clicker.blit(numberdisplay,(550 - numberdisplay.get_width() // 2, 150 - numberdisplay.get_height() // 2))
 
 
-
-
-        clickbuttontoaddclick()
-        clickbuttontoupgradeclick()
-
+    untilnextupgrade(nextupgrade)
+    clickbuttontoaddclick()
+    clickbuttontoupgradeclick()
 
         
-        pygame.display.update()
+    pygame.display.update()
 
