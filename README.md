@@ -11,4 +11,4 @@ the progression with the game halted when i lost motivation and interest, but i 
 
 - both updates have been completed
  
-- the game shouldn't be to hard to expand upon,aswell as making the game prettier
+- the game shouldn't be to hard to expand upon, and to make the game look prettier
