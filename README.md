@@ -9,7 +9,7 @@ the progression with the game halted when i lost motivation and interest, but i 
 
 - [x] `second update - adding classes and further code cleanup, and maybe more features`
  
- #### the game shouldn't be to hard to expand upon, and to make the game look prettier
+ #### the game shouldn't be to hard to expand upon, and to make look prettier
 
 
 ### to add more cubes or upgrades, create a new instance of the class like this
