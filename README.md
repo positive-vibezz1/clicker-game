@@ -1,6 +1,6 @@
 ## miniature-parakeet
 ### a clicker game made in pygame
-
+#000000
 a project i started to help me get better with python and game develepment.
 
 the progression with the game halted when i lost motivation and interest, but i will try to push out two more versions
