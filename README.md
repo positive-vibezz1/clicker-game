@@ -9,5 +9,6 @@ the progression with the game halted when i lost motivation and interest, but i 
 
 ```second update - adding classes and further code cleanup, and maybe more features```
 
-- both updated have been completed 
+- both updates have been completed
+ 
 - the game shouldn't be to hard to expand upon,aswell as making the game prettier
