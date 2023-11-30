@@ -25,14 +25,14 @@ upgrade_button_X.button_render()
 
 
 ### to add more text, create a new instance of the class like this
+```
+text = text((500, 200), "next upgrade in: " + str(your variable here), font2)
 
-`text = text((500, 200), "next upgrade in: " + str(your variable here), font2)`
+#then call your text inside the button class`
 
-`#then call your text inside the button class`
-
-`if button class:
+if button class:
     button functaionalit)
     text.text = "next upgrade in: " + str(next_upgrade_X)
-`
-`text.textrender(clicker)`
 
+text.textrender(clicker)
+```
