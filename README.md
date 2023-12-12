@@ -36,3 +36,12 @@ if button class:
 
 text.textrender(clicker)
 ```
+--
+## so apparently im not done
+
+ive added quite a bit to the code base
+- recursion
+- another button
+- and i might work on a passive income system
+
+altho im not sure how i would work in the passive incomve system, ig maybe i can count the clock.tick and for every tick add 1, im not sure idk
