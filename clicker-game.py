@@ -21,21 +21,26 @@ else:
 font_path = os.path.join(base_path, font_path)
 
 
-#click logic
-upgrade_logic_1 = 3 ** 2
-upgrade_logic_2 = Recursion(2,2)
+
+
 
 next_upgrade_1 = 10
 next_upgrade_2 = 100
 
-main_counter = 0
+main_counter = 100000000000000000000
 click_worth = 1
 
+#passive income
+passive_income = 0
 #display initiation aswell as fonnt initiation
 pygame.display.init()
 pygame.font.init()
 font1 = pygame.font.Font("Montserrat-Medium.ttf", 36)
 font2 = pygame.font.Font("Montserrat-Medium.ttf", 28)
+
+pygame.display.set_icon(pygame.image.load('D:\python projects\clicker pygame\sponge bob.png'))
+
+
 
 #colours
 button_color_pink = (255, 0, 255)
@@ -53,14 +58,14 @@ pygame.display.flip()
 
 
 # Create the text object
-score_display = text((10, 10), "you clicked: ", font1) 
-until_next_upgrade_1 = text((450, 100), "next upgrade at: " + str(next_upgrade_1), font2)
-until_next_upgrade_2 = text((450, 250), "next upgrade at: " + str(next_upgrade_2), font2)
+score_display = text((300, 10), "you clicked: ", font1) 
+until_next_upgrade_1 = text((600, 150), f"{next_upgrade_1}", font2)
+until_next_upgrade_2 = text((600, 350), f"{next_upgrade_2}", font2)
 
 # create a button object
-main_button = Button((100, 100), (50, 50), button_color_pink, clicker)
-upgrade_button_1 = Button((600, 170), (50, 50), button_color_red, clicker)
-upgrade_button_2 = Button((600, 300), (50, 50), button_color_pink, clicker)
+main_button = Button((200, 200), (100, 100), button_color_pink, clicker)
+upgrade_button_1 = Button((600, 200), (50, 50), button_color_red, clicker)
+upgrade_button_2 = Button((600, 400), (50, 50), button_color_pink, clicker)
 
 
 
@@ -84,22 +89,27 @@ while True:
             print("main_counter:", main_counter)
             print(f"your click worth is {click_worth}")
            
-        if upgrade_button_1.is_clicked((mousex, mousey), mousepress):            
+        if upgrade_button_1.is_clicked((mousex, mousey), mousepress):
+            upgrade_logic_1_sub_module = 2
+            upgrade_logic_1_sub_module += 1
+            upgrade_logic_1 = 3 ** upgrade_logic_1_sub_module         
             if main_counter >= next_upgrade_1:
                 next_upgrade_1 += upgrade_logic_1
-                click_worth += 1
-            until_next_upgrade_1.text = "next upgrade at: " + str(next_upgrade_1)
+                click_worth += 1                
+            until_next_upgrade_1.text = f"{next_upgrade_1}"
             print(f"next_upgrade_1: {next_upgrade_1}")
             print(f"your click worth: {click_worth}")
             print("upgrade_logic_1e:", next_upgrade_1)
+            print(f" base  is equal to {upgrade_logic_1_sub_module}")
        
         if upgrade_button_2.is_clicked((mousex, mousey), mousepress):
+            upgrade_logic_2 = Recursion(2,2)
             power_result = upgrade_logic_2.recursive_power(next_upgrade_2, upgrade_logic_2.exponent) 
             if main_counter >= next_upgrade_2:
                 next_upgrade_2 += power_result  
                 click_worth += 2
                 print(f"Power Result: {power_result}")
-                until_next_upgrade_2.text = "next upgrade at: " + str(next_upgrade_2)
+                until_next_upgrade_2.text = f"{next_upgrade_2}"
             print(f"next_upgrade_1: {next_upgrade_2}")
             print(f"your click worth: {click_worth}")
             print("upgrade_logic:", next_upgrade_2)
@@ -117,8 +127,11 @@ while True:
     upgrade_button_2.button_render()
     
     #click amount display
-    click_amoun_display = text((10, 400), "click amount: " + str(click_worth), font2)
+    click_amoun_display = text((10, 500), "click worth: " + str(click_worth), font2)
     click_amoun_display.textrender(clicker)
+    
+    passive_income_display = text((10, 550), f"you have: {passive_income} passive income", font2)
+    passive_income_display.textrender(clicker)
     
     
     clock.tick(60)    
