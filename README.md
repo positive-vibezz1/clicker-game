@@ -80,7 +80,7 @@ class Passiveincome:
     def __eq__(self, other):
         return self.number == other
 ```
-then i just create a custom event in pygame like this 
+then i create a custom event in pygame like this 
 ```
 PASSIVEVENT = USEREVENT + 1
 
