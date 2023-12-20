@@ -88,4 +88,4 @@ if event.type == PASSIVEVENT:
     main_counter += input_passive_income
     print(f"main counter is {main_counter}")
 ```
-which allows me to use this function in ***pygame.time.set_timer(userevent,1000`***, which takes a custom event and then counts a time down and then restarts the event
+which allows me to use this function in ***pygame.time.set_timer(userevent, 1000)***, which takes a custom event and then counts a time down and then restarts the event
