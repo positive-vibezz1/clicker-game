@@ -48,7 +48,7 @@ altho im not sure how i would work in the passive incomve system, maybe i can co
 
 ---
 
-##how i do the passive income
+## how i do the passive income
 
 I've created a class which passes itself as a perameter and returns a int like this(with help from a friend)
 ```
