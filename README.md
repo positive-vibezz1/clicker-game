@@ -3,7 +3,7 @@
 
 a project i started to help me get better with python and game develepment.
 
-the progression with the game halted when i lost motivation and interest, but i will try to push out two more versions
+the progression with the game halted when i lost motivation and interest(and couldnt code very well), but i will try to push out two more versions
 
 - [x] `first update - code clean up and removing unnecessary code`
 
