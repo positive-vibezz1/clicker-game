@@ -1,4 +1,9 @@
+import sys
+
 class Recursion:
+    
+    #recursion depth
+    sys.setrecursionlimit(5000)
     def __init__(self, base, exponent):
         self.base = base
         self.exponent = exponent

@@ -9,6 +9,8 @@ from button import Button
 from recursion import Recursion
 from passive_income import Passiveincome
 
+
+
 button_size_changed = False
 
 upgrade_logic_1_sub_module = 2
@@ -20,11 +22,11 @@ next_upgrade_1 = 10
 next_upgrade_2 = 100
 next_upgrade_3 = 500
 
-main_counter = 1000000000000
+main_counter = 100000
 click_worth = 1
 
 #passive income
-input_passive_income = Passiveincome(0)
+input_passive_income = Passiveincome(1000)
 
 
 #display initiation aswell as fonnt initiation
@@ -33,10 +35,7 @@ pygame.font.init()
 font1 = pygame.font.SysFont("Arial", 36)
 font2 = pygame.font.SysFont("Arial", 28)
 
-
 pygame.display.set_icon(pygame.image.load('D:\python projects\clicker pygame\sponge bob.png'))
-
-
 
 #colours
 button_color_pink = (255, 0, 255)
@@ -46,7 +45,7 @@ button_color_red = (255, 30, 0)
 
       
 #window properties
-size = 800, 600
+size = 1000, 800
 clicker = pygame.display.set_mode((size))
 surface = pygame.Surface(size)
 pygame.display.set_caption("clicker game")
@@ -60,10 +59,11 @@ until_next_upgrade_2 = text((600, 300), f"{next_upgrade_2}", font2)
 until_passive_income_upgrade_1 = text((600, 450), f"{next_upgrade_3}", font2) 
 
 # create a button object
-main_button = Button((200, 200), (100, 100), button_color_pink, clicker)
-upgrade_button_1 = Button((600, 200), (50, 50), button_color_red, clicker)
-upgrade_button_2 = Button((600, 350), (50, 50), button_color_pink, clicker)
-passive_income_button_1 = Button((600, 500), (50, 50), button_color_pink, clicker)
+main_button = Button((200, 200), (150, 150), clicker)
+upgrade_button_1 = Button((600, 200), (100, 100), clicker)
+upgrade_button_2 = Button((600, 350), (100, 100), clicker)
+passive_income_button_1 = Button((600, 500), (100, 100), clicker)
+
 
 PASSIVEVENT = USEREVENT + 1
 pygame.time.set_timer(PASSIVEVENT,1000)
@@ -75,6 +75,9 @@ while True:
     clicker.fill((0, 0, 0))
 
     for event in pygame.event.get():
+        (mousex, mousey) = pygame.mouse.get_pos()
+        mousepressdown = event.type == MOUSEBUTTONDOWN
+        mousepressup = event.type == MOUSEBUTTONUP
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
@@ -82,10 +85,7 @@ while True:
         if event.type == PASSIVEVENT:
             main_counter += input_passive_income
             print(f"main counter is {main_counter}")
-        (mousex, mousey) = pygame.mouse.get_pos()
-        mousepressdown = event.type == MOUSEBUTTONDOWN
-        mousepressup = event.type == MOUSEBUTTONUP
-        
+       
         if main_button.is_clicked((mousex, mousey), mousepressdown):
 
             main_counter += click_worth
@@ -106,8 +106,13 @@ while True:
             print("upgrade_logic_1e:", next_upgrade_1)
             print(f" base  is equal to {upgrade_logic_1_sub_module}")
        
-        if upgrade_button_2.is_clicked((mousex, mousey), mousepressdown):            
-            power_result = upgrade_logic_2.recursive_power(next_upgrade_2, upgrade_logic_2.exponent) 
+        if upgrade_button_2.is_clicked((mousex, mousey), mousepressdown):
+            #recursion depth          
+            power_result = upgrade_logic_2.recursive_power(next_upgrade_2, upgrade_logic_2.exponent)
+            if power_result >= sys.getrecursionlimit():
+                until_next_upgrade_2.text = "recursion limit reached"
+                print("recursion limit reached")
+                
             if main_counter >= next_upgrade_2:
                 main_counter -= next_upgrade_2
                 next_upgrade_2 += power_result  
@@ -129,34 +134,32 @@ while True:
         def animationhandler():   
             if main_button.is_clicked((mousex, mousey), mousepressdown):
                 main_button.set_size((90, 90))
-            if main_button.is_clicked((mousex, mousey), mousepressup):       
+            elif mousepressup:       
                 main_button.set_size((100, 100))
             if upgrade_button_1.is_clicked((mousex, mousey), mousepressdown):
                 upgrade_button_1.set_size((45, 45))
-            if upgrade_button_1.is_clicked((mousex, mousey), mousepressup):
+            elif mousepressup:
                 upgrade_button_1.set_size((50, 50))
             if upgrade_button_2.is_clicked((mousex, mousey), mousepressdown):
                 upgrade_button_2.set_size((45, 45))
-            if upgrade_button_2.is_clicked((mousex, mousey), mousepressup):
+            elif mousepressup:
                 upgrade_button_2.set_size((50, 50))
             if passive_income_button_1.is_clicked((mousex, mousey), mousepressdown):
                 passive_income_button_1.set_size((45, 45))
-            if passive_income_button_1.is_clicked((mousex, mousey), mousepressup):
+            elif mousepressup:
                 passive_income_button_1.set_size((50, 50))
-
-               
+              
     # Draw the text on the screen
     score_display.textrender(clicker)
     until_next_upgrade_1.textrender(clicker)
     until_next_upgrade_2.textrender(clicker)
     until_passive_income_upgrade_1.textrender(clicker)
-        
-        
+                
     #draw the button on the screen
-    main_button.button_render()
-    upgrade_button_1.button_render()
-    upgrade_button_2.button_render()
-    passive_income_button_1.button_render()
+    cookie_image = main_button.main_cookie("D:\python projects\clicker pygame\i_test_graphic.png", clicker)
+    cookie_image =  upgrade_button_1.main_cookie("D:\python projects\clicker pygame\i_test_graphic.png", clicker)
+    cookie_image =  upgrade_button_2.main_cookie("D:\python projects\clicker pygame\i_test_graphic.png", clicker)
+    cookie_image =  passive_income_button_1.main_cookie("D:\python projects\clicker pygame\echo_arena_player-removebg-preview.png", clicker)
     
     #click amount display
     score_display.text = "you clicked: " + str(main_counter)
